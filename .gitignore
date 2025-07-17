@@ -4,3 +4,5 @@ jobs.sh
 .logs/frontend.log
 .logs/frontend.pid
 1
+
+/vendor/

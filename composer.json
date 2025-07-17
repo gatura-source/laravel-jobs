@@ -1,0 +1,17 @@
+{
+    "name": "bedan/laravel-jobs",
+    "description": "A simple jobs board",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Bedan\\LaravelJobs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gatura-source"
+        }
+    ],
+    "require": {}
+}
