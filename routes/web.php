@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobApplicationsController;
+use App\Http\Controllers\JobController;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +28,5 @@ Route::delete('auth', [AuthController::class, 'destroy'])
 //     ->only(['create', 'store']);
 Route::middleware(['auth'])->group(function () {
     Route::resource('jobs.applications', JobApplicationsController::class)
-    ->only('create','store');
+        ->only('create', 'store');
 });
