@@ -9,8 +9,11 @@ use Illuminate\View\Component;
 class TextInput extends Component
 {
     public ?string $name;
+
     public ?string $placeholder;
+
     public ?string $value;
+
     public ?string $type;
 
     /**

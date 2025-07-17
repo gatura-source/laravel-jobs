@@ -20,7 +20,6 @@ class JobController extends Controller
             'experience',
         );
 
-        
         return view('jobs.index', [
             'jobs' => Jobs::query()->filter($filters)->get(),
         ]);
@@ -48,7 +47,7 @@ class JobController extends Controller
     public function show(Jobs $job)
     {
         return view('jobs.job', [
-            'job' => $job
+            'job' => $job,
         ]);
     }
 
