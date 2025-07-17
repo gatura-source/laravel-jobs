@@ -1,0 +1,6 @@
+jobs.sh
+.logs/backend.log
+.logs/backend.pid
+.logs/frontend.log
+.logs/frontend.pid
+1
