@@ -10,9 +10,20 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filters = request()->only(
+            'search',
+            'min_salary',
+            'max_salary',
+            'category',
+            'experience',
+        );
+
+        
+        return view('jobs.index', [
+            'jobs' => Jobs::query()->filter($filters)->get(),
+        ]);
     }
 
     /**
@@ -34,17 +45,20 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Jobs $jobs)
+    public function show(Jobs $job)
     {
-        //
+        return view('jobs.job', [
+            'job' => $job
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Jobs $jobs)
+    public function edit(Jobs $job)
     {
-        //
+        // //
+        // return view('jobs.edit', compact('job'));
     }
 
     /**

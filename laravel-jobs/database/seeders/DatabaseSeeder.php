@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employer;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Jobs;
+use Illuminate\Contracts\Queue\Job;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,12 +16,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+       User::factory(300)->create();
+       $users = User::all()->shuffle();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        Jobs::factory(10)->create();
+
+       for($i = 0; $i<= 19; $i++)
+       {
+            Employer::factory()->create([
+                'user_id' => $users->pop()->id
+            ]
+            );
+
+       }
+       $employers = Employer::all();
+       
+    //    Jobs::factory(100)->create();
+       for($i = 0; $i <= 100; $i++)
+       {
+        Jobs::factory()->create(
+            [
+               'employer_id' => $employers->random()->id,
+            ]
+            );
+       }
     }
 }
