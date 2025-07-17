@@ -44,6 +44,13 @@
         @endauth
     </ul>
    </nav>
+    @foreach (['success', 'error', 'warning', 'info'] as $msg)
+    @if(session($msg))
+        <div class=" my-8 rounded-md border-l border-green-300 bg-green-100 alert alert-{{ $msg }}">
+            {{ session($msg) }}
+        </div>
+    @endif
+    @endforeach
         {{ $slot }}
     </body>
     <footer>
