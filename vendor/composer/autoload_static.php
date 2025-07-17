@@ -172,7 +172,6 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         'B' => 
         array (
             'Brick\\Math\\' => 11,
-            'Bedan\\LaravelJobs\\' => 18,
             'Barryvdh\\Debugbar\\' => 18,
         ),
         'A' => 
@@ -510,17 +509,14 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'Bedan\\LaravelJobs\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'Barryvdh\\Debugbar\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
         ),
         'App\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laravel/pint/app',
+            0 => __DIR__ . '/../..' . '/app',
+            1 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
     );
 

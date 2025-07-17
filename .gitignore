@@ -6,3 +6,7 @@ jobs.sh
 1
 
 /vendor/
+.backend/
+.frontend/
+.env
+

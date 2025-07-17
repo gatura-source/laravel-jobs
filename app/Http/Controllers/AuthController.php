@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,19 +40,16 @@ class AuthController extends Controller
         );
         $remember = $request->filled('remember');
 
-        if (Auth::attempt($credentials, $remember)){
+        if (Auth::attempt($credentials, $remember)) {
             return redirect()->intended('/');
+        } else {
+            return redirect()->back()->with('error', 'Invalid Credentials');
         }
-        else
-            {
-                return redirect()->back()->with("error", "Invalid Credentials");
-            }
     }
 
     /**
      * Display the specified resource.
      */
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -79,6 +75,7 @@ class AuthController extends Controller
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerate();
+
         return redirect('/');
     }
 }
