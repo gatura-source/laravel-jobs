@@ -487,11 +487,13 @@ class ComposerStaticInit88970a0117c062eed55fa8728fc43833
         ),
         'Database\\Seeders\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laravel/pint/database/seeders',
+            0 => __DIR__ . '/../..' . '/database/seeders',
+            1 => __DIR__ . '/..' . '/laravel/pint/database/seeders',
         ),
         'Database\\Factories\\' => 
         array (
-            0 => __DIR__ . '/..' . '/laravel/pint/database/factories',
+            0 => __DIR__ . '/../..' . '/database/factories',
+            1 => __DIR__ . '/..' . '/laravel/pint/database/factories',
         ),
         'Cron\\' => 
         array (
