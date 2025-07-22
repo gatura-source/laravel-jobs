@@ -26,7 +26,7 @@
                 </div>
                 <div class="mb-1 semi-bold">
                     
-                     <x-radio-group name="experience" :options="\App\Models\Jobs::getExperienceLevels()" />
+                     <x-radio-group name="experience" :options="\App\Models\Jobs::getExperienceLevels()" :all="true"/>
                 </div>
 
 
@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-1 semi-bold">
                     
-                     <x-radio-group name="category" :options="\App\Models\Jobs::getCategories()" />
+                     <x-radio-group name="category" :options="\App\Models\Jobs::getCategories()" :all="true"/>
                 </div>
             </div>
         </div>

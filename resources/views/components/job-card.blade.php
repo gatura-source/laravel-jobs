@@ -21,6 +21,15 @@
                     <a href="{{route('jobs.index',['category' => $job->category])}}"> {{ Str::ucfirst($job->category) }}</a>
                    
                 </x-tag>
+                @can("apply", $job)
+                <x-tag class="bg-green-300">
+                    <a href="{{route('jobs.applications.create',['job' => $job])}}"> Apply</a>
+                </x-tag>
+                @else
+                <x-tag class="bg-red-200">
+                    Application submitted
+                </x-tag>
+                @endcan
             </div>
 
         </div>

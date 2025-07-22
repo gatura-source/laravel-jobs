@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobApplication;
 use App\Models\Jobs;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class JobApplicationsController extends Controller
@@ -19,9 +20,13 @@ class JobApplicationsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    use AuthorizesRequests;
+
     public function create(Jobs $job)
     {
         //
+        $this->authorize('apply', $job);
+
         return view('applications.createapplication', ['job' => $job]);
     }
 
@@ -30,11 +35,17 @@ class JobApplicationsController extends Controller
      */
     public function store(Jobs $job, Request $request)
     {
+        $validatedData = $request->validate([
+            'expected_salary' => 'required|min:1|max:1000000',
+            'cv' => 'required|file|mimes:pdf|max:2048',
+        ]);
+
+        $file = $request->file('cv');
+        $path = $file->store('cvs', 'private');
         $job->jobapplications()->create([
             'user_id' => $request->user()->id,
-            ...$request->validate([
-                'expected_salary' => 'required|min:1|max:1000000',
-            ]),
+            'expected_salary' => $validatedData['expected_salary'],
+            'cv_filepath' => $path,
         ]);
 
         return redirect()->route('jobs.show', $job)

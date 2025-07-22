@@ -11,11 +11,11 @@ class JobApplication extends Model
     /** @use HasFactory<\Database\Factories\JobApplicationFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'jobs_id', 'expected_salary'];
+    protected $fillable = ['user_id', 'jobs_id', 'expected_salary', 'cv_filepath'];
 
     public function job(): BelongsTo
     {
-        return $this->belongsTo(Jobs::class);
+        return $this->belongsTo(Jobs::class, 'jobs_id');
 
     }
 

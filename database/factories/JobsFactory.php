@@ -24,7 +24,7 @@ class JobsFactory extends Factory
             'salary' => fake()->numberBetween(50000, 120000),
             'location' => fake()->city(),
             'category' => fake()->randomElement(Jobs::getCategories()),
-            'experience' => fake()->randomElement(array_keys(Jobs::getExperienceLevels())),
+            'experience' => fake()->randomElement((Jobs::getExperienceLevels())),
         ];
     }
 }
