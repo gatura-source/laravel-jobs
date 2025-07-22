@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\JobApplication;
 
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
 
 class MyApplicationsController extends Controller
@@ -10,18 +10,18 @@ class MyApplicationsController extends Controller
     /**
      * Display a listing of the resource.
      */
-     public function index()
+    public function index()
     {
         return view(
             'my_applications.index',
             [
                 'applications' => auth()->user()->jobApplications()
                     ->with([
-                        'job' => fn($query) => $query->withCount('jobApplications')
+                        'job' => fn ($query) => $query->withCount('jobApplications')
                             ->withAvg('jobApplications', 'expected_salary'),
-                        'job.employer'
+                        'job.employer',
                     ])
-                    ->latest()->get()
+                    ->latest()->get(),
             ]
         );
     }
@@ -72,13 +72,13 @@ class MyApplicationsController extends Controller
     public function destroy(JobApplication $my_application): mixed
     {
         // dd($my_application);
-        try{
-            if($my_application->delete()){
+        try {
+            if ($my_application->delete()) {
                 return redirect()->route('my_applications.index')->with('success', 'Application withdrawn successfully');
             }
-            return redirect()->route('my_applications.index')->with('error','Error Withdrawing Application');
-        }catch(\Exception $e)
-        {
+
+            return redirect()->route('my_applications.index')->with('error', 'Error Withdrawing Application');
+        } catch (\Exception $e) {
             return redirect()->route('my_applications.index')->with('error', $e->getMessage());
         }
     }

@@ -15,6 +15,7 @@ class Jobs extends Model
     use HasFactory;
 
     protected $fillable = ['experience', 'category', 'salary', 'title', 'description', 'location'];
+
     protected $table = 'offered_jobs';
 
     public static function getExperienceLevels(): array

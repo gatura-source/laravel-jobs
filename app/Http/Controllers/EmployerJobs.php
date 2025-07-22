@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobRequest;
-use Illuminate\Http\Request;
 use App\Models\Jobs;
-use Illuminate\Contracts\Queue\Job;
 
 class EmployerJobs extends Controller
 {
@@ -14,9 +12,9 @@ class EmployerJobs extends Controller
      */
     public function index()
     {
-        return view("employerjobs.index", [
-            "jobs" => auth()->user()->employer->jobs()->with([
-                'employer', 'jobapplications', 'jobapplications.user'
+        return view('employerjobs.index', [
+            'jobs' => auth()->user()->employer->jobs()->with([
+                'employer', 'jobapplications', 'jobapplications.user',
             ]
             )->get(),
         ]);
@@ -27,7 +25,7 @@ class EmployerJobs extends Controller
      */
     public function create()
     {
-        return view("employerjobs.create");
+        return view('employerjobs.create');
     }
 
     /**
@@ -37,29 +35,27 @@ class EmployerJobs extends Controller
     {
         try {
             if ($request->user()->employer->jobs()->create($request->validated())) {
-            return redirect()->route("employer_jobs.index")->with("success", "Listing added successfully");
+                return redirect()->route('employer_jobs.index')->with('success', 'Listing added successfully');
             }
-            return redirect()->back()->with("error", "Error while adding job listing");
+
+            return redirect()->back()->with('error', 'Error while adding job listing');
         } catch (\Exception $e) {
             // dd($validated);
-            return redirect()->back()->with("error", "Exception: " . $e->getMessage());
+            return redirect()->back()->with('error', 'Exception: '.$e->getMessage());
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Jobs $employer_job)
     {
-        return view("employerjobs.edit", [ "job" => $employer_job ]);
+        return view('employerjobs.edit', ['job' => $employer_job]);
     }
 
     /**
@@ -69,13 +65,14 @@ class EmployerJobs extends Controller
     {
         try {
             if ($employer_job->update($request->validated())) {
-            return redirect()->route("employer_jobs.index")->with("success", "Listing updated successfully");
+                return redirect()->route('employer_jobs.index')->with('success', 'Listing updated successfully');
             }
-            return redirect()->back()->with("error", "Error while updating job listing");
+
+            return redirect()->back()->with('error', 'Error while updating job listing');
         } catch (\Exception $e) {
             // dd($validated);
-            return redirect()->back()->with("error", "Exception: " . $e->getMessage());
-        }  
+            return redirect()->back()->with('error', 'Exception: '.$e->getMessage());
+        }
     }
 
     /**

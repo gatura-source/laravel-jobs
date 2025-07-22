@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('job_applications', function (Blueprint $table) {
-           $table->string(column: 'cv_filepath')->nullable();
+            $table->string(column: 'cv_filepath')->nullable();
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('job_applications', function (Blueprint $table){
+        Schema::table('job_applications', function (Blueprint $table) {
             $table->dropColumn(columns: 'cv_filepath');
         });
     }

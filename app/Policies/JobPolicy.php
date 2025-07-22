@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Jobs;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class JobPolicy
 {
@@ -71,6 +70,6 @@ class JobPolicy
 
     public function apply(User $user, Jobs $jobs): bool
     {
-        return !($jobs->jobapplications()->where("user_id", $user->id)->exists());
+        return ! ($jobs->jobapplications()->where('user_id', $user->id)->exists());
     }
 }

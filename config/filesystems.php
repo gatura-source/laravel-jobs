@@ -47,7 +47,7 @@ return [
             'report' => false,
         ],
 
-        'private' =>[
+        'private' => [
             'driver' => 'local',
             'root' => storage_path('private'),
             'visibility' => 'private',

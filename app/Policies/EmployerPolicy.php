@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Employer;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class EmployerPolicy
 {
@@ -23,7 +22,8 @@ class EmployerPolicy
     {
         return false;
     }
-   public function create(User $user): bool
+
+    public function create(User $user): bool
     {
         // Only allow users who don't already have an employer
         return $user->employer === null;
@@ -34,7 +34,6 @@ class EmployerPolicy
         // Only allow the employer owner to update
         return $user->id === $employer->user_id;
     }
-
 
     /**
      * Determine whether the user can create models.

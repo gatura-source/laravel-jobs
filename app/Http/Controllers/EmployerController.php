@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Employer;
 
+use App\Models\Employer;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
-
 class EmployerController extends Controller
 {
-        use AuthorizesRequests;
+    use AuthorizesRequests;
 
     // public function __construct()
     // {
@@ -18,7 +17,8 @@ class EmployerController extends Controller
 
     public function create()
     {
-        $this->authorize("create", Employer::class);
+        $this->authorize('create', Employer::class);
+
         return view('employer.create');
     }
 
@@ -26,7 +26,7 @@ class EmployerController extends Controller
     {
         auth()->user()->employer()->create(
             $request->validate([
-                'company_name' => 'required|min:3|unique:employers,company_name'
+                'company_name' => 'required|min:3|unique:employers,company_name',
             ])
         );
 
