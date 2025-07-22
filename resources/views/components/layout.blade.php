@@ -28,9 +28,21 @@
         </li>
     </ul>
     <ul class="flex space-x-2">
-        @auth
         <li>
-            {{auth()->user()->name ?? 'Anonymous'}}
+        @auth
+        <a href="{{ route('my_applications.index') }}">
+            <li>
+            {{auth()->user()->name ?? 'Anonymous'}}: Applications
+        </li>
+        </a>
+        <li>
+            <a href="{{route('employer_jobs.index') }}">My Jobs</a>
+        </li>
+        <!-- @if (auth()->user()->employer)
+        <li>
+            <a href="{{ route('employer_jobs.index') }}">My Jobs</a>
+        </li>
+        @endif -->
         </li>
         <li>
             <form action="{{route('auth.destroy')}}" method="POST">
@@ -44,10 +56,32 @@
         @endauth
     </ul>
    </nav>
+    @php
+    $alertClasses = [
+        'success' => 'border-green-300 bg-green-100 text-green-800',
+        'error'   => 'border-red-300 bg-red-100 text-red-800',
+        'warning' => 'border-yellow-300 bg-yellow-100 text-yellow-800',
+        'info'    => 'border-blue-300 bg-blue-100 text-blue-800',
+    ];
+    @endphp
+
     @foreach (['success', 'error', 'warning', 'info'] as $msg)
     @if(session($msg))
-        <div class=" my-8 rounded-md border-l border-green-300 bg-green-100 alert alert-{{ $msg }}">
-            {{ session($msg) }}
+        <div 
+            x-data="{ show: true }" 
+            x-show="show" 
+            x-transition 
+            class="relative my-4 p-4 rounded-md border-l-4 {{ $alertClasses[$msg] }}"
+            role="alert"
+        >
+            <span>{{ session($msg) }}</span>
+            <button 
+                @click="show = false" 
+                class="absolute top-2 right-2 text-lg font-bold focus:outline-none"
+                aria-label="Close"
+            >
+                &times;
+            </button>
         </div>
     @endif
     @endforeach
