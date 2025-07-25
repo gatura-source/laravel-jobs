@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Jobs - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+
+        .slide.active {
+            display: flex;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #f1f5f9;
+        }
+
+        .slide h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #94a3b8;
+        }
+
+        .slide p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+        }
+
+        .author {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f59e0b;
+            margin-bottom: 0.5rem;
+        }
+
+        .github {
+            font-size: 1.2rem;
+            color: #8b5cf6;
+            font-family: 'Monaco', monospace;
+        }
+
+        .problem-list, .feature-list, .roadmap-list {
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .problem-list li, .feature-list li, .roadmap-list li {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .problem-list li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .feature-list li::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .roadmap-list li::before {
+            content: attr(data-status);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tech-item strong {
+            color: #f59e0b;
+            font-size: 1.2rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(245, 158, 11, 0.2);
+            font-weight: 600;
+            color: #f59e0b;
+        }
+
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-item img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .demo-item img:hover {
+            transform: scale(1.05);
+            border-color: rgba(245, 158, 11, 0.6);
+        }
+
+        .demo-label {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #e2e8f0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .demo-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(245, 158, 11, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-button:hover {
+            background: rgba(245, 158, 11, 0.6);
+            transform: scale(1.1);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .highlight {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .market-stats {
+            display: flex;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #f59e0b;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">10</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Laravel Jobs</h1>
+            <p class="subtitle">A Simple Job Board Built with Laravel</p>
+            <div class="author">Simon Gatura</div>
+            <div class="github">github.com/gatura-source/laravel-jobs</div>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide">
+            <h2>The Problem</h2>
+            <ul class="problem-list">
+                <li>Job seekers struggle to find targeted job listings</li>
+                <li>Many job board platforms are expensive, closed, or overly complex</li>
+                <li>Small businesses and communities lack simple, self-hosted solutions</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Solution -->
+        <div class="slide">
+            <h2>Our Solution</h2>
+            <p><span class="highlight">Laravel Jobs</span> is a lightweight, open-source job board built with Laravel for easy customization and deployment.</p>
+            <p>Perfect for niche boards, developer communities, and internal hiring tools.</p>
+        </div>
+
+        <!-- Slide 4: Demo -->
+        <div class="slide">
+            <h2>Demo & Screenshots</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <img src="images/JobListing.png" alt="Job Listing Page"/>
+                    <div class="demo-label">Job Listing Page</div>
+                </div>
+                <div class="demo-item">
+                    <img src="images/JobInfo.png" alt="Job Details View"/>
+                    <div class="demo-label">Job Details View</div>
+                </div>
+                <div class="demo-item">
+                    <img src="images/JobPostingForm.png" alt="Job Posting Form"/>
+                    <div class="demo-label">Job Posting Form</div>
+                </div>
+                <div class="demo-item">
+                    <img src="images/ApplicationForm.png" alt="Job Application Form"/>
+                    <div class="demo-label">Job Application Form</div>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; font-style: italic;">Live demo and screenshots available in the repository</p>
+        </div>
+
+        <!-- Slide 5: Key Features -->
+        <div class="slide">
+            <h2>Key Features</h2>
+            <ul class="feature-list">
+                <li>Post and browse job listings with ease</li>
+                <li>Search jobs by keyword or location</li>
+                <li>Admin moderation support (optional)</li>
+                <li>Simple, clean Blade templates</li>
+                <li>Easily extendable (Stripe, categories, etc.)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Market Opportunity -->
+        <div class="slide">
+            <h2>Market Opportunity</h2>
+            <div class="market-stats">
+                <div class="stat">
+                    <span class="stat-number">↗️</span>
+                    <div class="stat-label">Niche job boards are rising</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">🏢</span>
+                    <div class="stat-label">Organizations need hiring tools</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">💰</span>
+                    <div class="stat-label">Monetization opportunities</div>
+                </div>
+            </div>
+            <p>Opportunity to monetize with premium job listings or as SaaS</p>
+        </div>
+
+        <!-- Slide 7: Tech Stack -->
+        <div class="slide">
+            <h2>Tech Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Framework:</strong><br>Laravel (PHP)
+                </div>
+                <div class="tech-item">
+                    <strong>Frontend:</strong><br>Blade templating, TailwindCSS
+                </div>
+                <div class="tech-item">
+                    <strong>Database:</strong><br>MySQL / SQLite
+                </div>
+                <div class="tech-item">
+                    <strong>Deployment:</strong><br>Laravel Forge, Docker, Render
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Competitive Advantage -->
+        <div class="slide">
+            <h2>Competitive Advantage</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Laravel Jobs</th>
+                        <th>WP Plugins</th>
+                        <th>SaaS Platforms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Open Source</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Self-hosted</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Lightweight & Simple</td>
+                        <td>✅</td>
+                        <td>⚠️</td>
+                        <td>❌</td>
+                    </tr>
+                    <tr>
+                        <td>Developer Friendly</td>
+                        <td>✅</td>
+                        <td>⚠️</td>
+                        <td>⚠️</td>
+                    </tr>
+                    <tr>
+                        <td>Fully Customizable</td>
+                        <td>✅</td>
+                        <td>⚠️</td>
+                        <td>❌</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 9: Roadmap -->
+        <div class="slide">
+            <h2>Roadmap</h2>
+            <ul class="roadmap-list">
+                <li data-status="✅">MVP: Post, List, Search jobs</li>
+                <li data-status="🔜">Tags, Categories, Filters</li>
+                <li data-status="🔜">Admin dashboard</li>
+                <li data-status="🔜">Stripe Integration</li>
+                <li data-status="🔜">Notifications (Email/SMS)</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10: Call to Action -->
+        <div class="slide">
+            <h2>Let's Build Together</h2>
+            <p>Ready to revolutionize job boards?</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/gatura-source/laravel-jobs" class="cta-button cta-primary" target="_blank">
+                    Try the Project
+                </a>
+                <a href="#" class="cta-button cta-secondary">
+                    Let's Collaborate
+                </a>
+            </div>
+            <p style="margin-top: 2rem;">Contribute code, ideas, or translations<br>Build SaaS or deploy it in your community</p>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" onclick="previousSlide()">←</button>
+            <button class="nav-button" onclick="nextSlide()">→</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Auto-advance (optional - uncomment to enable)
+        // setInterval(nextSlide, 10000);
+    </script>
+</body>
+</html>
